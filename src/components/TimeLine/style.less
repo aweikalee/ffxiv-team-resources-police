@@ -1,0 +1,143 @@
+.timeline {
+  font-size: 14px;
+  line-height: 1.4;
+  overflow: hidden;
+
+  .timeline__header {
+    display: flex;
+    overflow: hidden;
+    background-color: rgba(black, 0.5);
+    padding: 2px 4px;
+  }
+
+  :deep(.timeline__time) {
+    width: 3em;
+    flex-shrink: 0;
+    color: var(--a-primary-color);
+    line-height: 1.25em * 1.4;
+    font-size: 0.8em;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .timeline__time-row {
+      &.end-time {
+        opacity: 0.3;
+      }
+    }
+  }
+
+  .timeline__phase-title {
+    padding: 2px 4px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1.4;
+    white-space: normal;
+    word-break: break-all;
+    word-wrap: break-word;
+
+    position: sticky;
+    top: 0;
+  }
+
+  .timeline__phase {
+    display: flex;
+    overflow: hidden;
+    background-color: rgba(black, 0.2);
+    padding: 2px 4px;
+    margin-top: 4px;
+  }
+
+  .timeline__container {
+    flex-grow: 1;
+    display: flex;
+    overflow: hidden;
+  }
+
+  .timeline__col {
+    width: 50%;
+    box-sizing: border-box;
+    padding-left: 8px;
+  }
+
+  .timeline__row {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: rgba(white, 0.9);
+    position: relative;
+
+    &:hover {
+      background-color: rgba(white, 0.1);
+      cursor: pointer;
+
+      .timeline__row-fast {
+        display: block;
+
+        .timeline__row-fast__remove {
+          transform: rotate(45deg);
+        }
+      }
+    }
+
+    .timeline__row-fast {
+      display: none;
+      --n-width: 1em;
+      --n-height: 1em;
+      --n-padding: 0;
+
+      position: absolute;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+    }
+
+    .timeline__row-name {
+      font-size: 1em;
+      &.hostile {
+        color: var(--a-error-color);
+      }
+    }
+    .timeline__row-count {
+      color: var(--a-success-color);
+    }
+    .timeline__row-miss {
+      font-size: 0.8em;
+      color: var(--a-error-color);
+    }
+    .timeline__row-offset {
+      font-size: 0.8em;
+      color: var(--a-info-color);
+    }
+    .timeline__row-source {
+      opacity: 0.5;
+      font-size: 0.8em;
+      margin-left: 4px;
+    }
+
+    .timeline__row-overlay {
+      display: none;
+
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(white, 0.7);
+      justify-content: flex-end;
+      align-items: center;
+
+      .button {
+        cursor: pointer;
+      }
+    }
+
+    &:hover {
+      .timeline__row-overlay {
+        display: flex;
+      }
+    }
+  }
+}

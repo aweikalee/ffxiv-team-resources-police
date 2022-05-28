@@ -8,6 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@vueuse/core": "^8.5.0",
     "dayjs": "^1.11.2",
     "naive-ui": "^2.29.0",
     "vue": "^3.2.25"

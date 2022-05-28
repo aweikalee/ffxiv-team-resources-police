@@ -34,12 +34,26 @@
         />
       </template>
     </div>
+
+    <n-modal
+      v-model:show="showDetail"
+      style="width: 600px"
+      preset="card"
+      title="详情"
+      closable
+    >
+      <TimelineDetail v-if="detail" :detail="detail" />
+    </n-modal>
   </n-scrollbar>
 </template>
 
 <script lang="ts" setup>
 import { combat, reference, logs } from '@/store'
+
 import TimeLinePhase from './Phase.vue'
+import TimelineDetail from './Detail.vue'
+
+import { INJECT_KEY } from './inject'
 
 const maxPhase = computed(() => {
   return Math.max(
@@ -76,6 +90,16 @@ watch(
     })
   }
 )
+
+/* 查看详情 */
+const showDetail = ref(false)
+const detail = ref<ITimeline>()
+provide(INJECT_KEY, {
+  openDetail(item) {
+    showDetail.value = true
+    detail.value = item
+  },
+})
 </script>
 
 <style lang="less">

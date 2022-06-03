@@ -212,7 +212,6 @@ const abilitiesColumns: DataTableColumns<IReference['abilities'][0]> = [
       return (
         <NInputNumber
           value={row.cd}
-          type="number"
           onUpdateValue={(v) => (row.cd = v ? v : undefined)}
           placeholder="请输入冷却时间"
           step={5000}

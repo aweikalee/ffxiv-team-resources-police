@@ -42,7 +42,7 @@
         type="error"
         circle
         title="移除"
-        @click.stop="reference.remove(data)"
+        @click.stop="isReference(data) && reference.remove(data)"
       >
         <n-icon size="1em" class="timeline__row-fast__remove">
           <IconIncrease />

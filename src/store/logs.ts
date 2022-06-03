@@ -32,7 +32,7 @@ const state = reactive({
       const phase = list[i]
       for (let j = phase.length - 1; j >= 0; j -= 1) {
         const row = phase[j]
-        if (row.abilityId === item.abilityId && row.sourceId === item.sourceId)
+        if (row.ability === item.ability && row.source === item.source)
           return row
       }
     }
@@ -63,7 +63,7 @@ const state = reactive({
       startTimestamp,
     })
     log._cd = ability.cd ?? 0
-    log._phase = phase
+    log.phase = phase
 
     // 最后一次使用记录
     const lastAbility = state.getLastAbility(log)
@@ -73,8 +73,8 @@ const state = reactive({
       const last = state.getLast()
       if (
         last &&
-        last.abilityId === log.abilityId &&
-        last.sourceId === log.sourceId &&
+        last.ability === log.ability &&
+        last.source === log.source &&
         last._timestamp === log._timestamp
       ) {
         last._targets.push(...log._targets)

@@ -48,7 +48,6 @@ export function toLog(
     /* 运行时 */
     _type: 'log',
     _id: `L${logId++}`,
-    _phase: 0,
     _timestamp,
     _cd: 0,
     _lastUse: 0,
@@ -62,11 +61,10 @@ export function toLog(
     _miss: logLine._miss,
 
     /* 必要内容 */
+    phase: 0,
     isHostile: ENEMY_OR_PET.test(logLine.sourceId),
     timestamp,
-    sourceId: logLine.sourceId,
     source: logLine.source,
-    abilityId: logLine.abilityId,
     ability: logLine.ability,
   }
 }
@@ -78,24 +76,10 @@ export function toReference(log: ITimeline): ITimelineReference {
   return {
     _type: 'reference',
     _id: referenceId++,
-    ...pick(log, [
-      'isHostile',
-      'timestamp',
-      'abilityId',
-      'ability',
-      'sourceId',
-      'source',
-    ]),
+    ...pick(log, ['phase', 'isHostile', 'timestamp', 'ability', 'source']),
   }
 }
 
 export function toSaveReference(log: ITimeline) {
-  return pick(log, [
-    'isHostile',
-    'timestamp',
-    'abilityId',
-    'ability',
-    'sourceId',
-    'source',
-  ])
+  return pick(log, ['phase', 'isHostile', 'timestamp', 'ability', 'source'])
 }

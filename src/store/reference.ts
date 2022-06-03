@@ -18,13 +18,7 @@ const state = reactive({
   },
 
   add(item: ITimeline) {
-    if (item._type !== 'log') {
-      throw new Error(
-        `记录的类型不是 log, [${item._id}]: ${item.ability}(${item.source})`
-      )
-    }
-
-    const _list = list.value[item._phase] ?? (list.value[item._phase] = [])
+    const _list = list.value[item.phase] ?? (list.value[item.phase] = [])
 
     let i = 0
     for (; i < _list.length; i += 1) {
@@ -37,13 +31,7 @@ const state = reactive({
     state.save(current.value)
   },
 
-  remove(item: ITimeline) {
-    if (item._type !== 'reference') {
-      throw new Error(
-        `记录的类型不是 reference, [${item._id}]: ${item.ability}(${item.source})`
-      )
-    }
-
+  remove(item: ITimelineReference) {
     for (let i = 0; i < list.value.length; i += 1) {
       const phase = list.value[i]
       for (let j = 0; j < phase.length; j += 1) {
@@ -59,6 +47,11 @@ const state = reactive({
     throw new Error(
       `找不到记录, [${item._id}]: ${item.ability}(${item.source})`
     )
+  },
+
+  update(item: ITimelineReference) {
+    if (item._id) state.remove(item)
+    state.add(item)
   },
 })
 

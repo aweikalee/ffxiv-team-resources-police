@@ -93,6 +93,7 @@ onUnmounted(() => {
   height: 100vh;
   box-sizing: border-box;
   border: 1px solid #000;
+  background-color: #2c2c32;
 }
 
 .the-timeline {

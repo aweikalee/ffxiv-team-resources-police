@@ -29,7 +29,13 @@
 </template>
 
 <script lang="tsx" setup>
-import { createPhase, createAbility, createEmptyReference } from '@/store'
+import {
+  createPhase,
+  createAbility,
+  createEmptyReference,
+  createPhaseId,
+  createAbilityId,
+} from '@/utils'
 import {
   DataTableColumns,
   FormInst,
@@ -123,7 +129,11 @@ async function validate() {
 
 /* 阶段相关 */
 function addPhaseRow() {
-  form.value.phases.push(createPhase())
+  form.value.phases.push(
+    createPhase({
+      _id: createPhaseId(),
+    })
+  )
 }
 function removePhaseRow(index: number) {
   window.$dialog.warning({
@@ -183,7 +193,11 @@ const phaseColumns: DataTableColumns<IReference['phases'][0]> = [
 
 /* 技能列表相关 */
 function addAbilitiesRow() {
-  form.value.abilities.push(createAbility())
+  form.value.abilities.push(
+    createAbility({
+      _id: createAbilityId(),
+    })
+  )
 }
 function removeAbilitiesRow(index: number) {
   form.value.abilities.splice(index, 1)

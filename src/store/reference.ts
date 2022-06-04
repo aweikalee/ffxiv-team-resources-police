@@ -1,5 +1,5 @@
-import { logLine } from '@/utils'
-import { createEmptyReference, referenceStorage } from './referenceStorage'
+import { logLine, createEmptyReference } from '@/utils'
+import { referenceStorage } from './referenceStorage'
 
 const current = ref<IReference>(createEmptyReference())
 

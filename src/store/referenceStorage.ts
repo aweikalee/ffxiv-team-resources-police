@@ -6,11 +6,12 @@ import {
   stringToRegexp,
   pick,
   uncreateKey,
+  createPhaseId,
+  createAbilityId,
+  createEmptyReference,
 } from '@/utils'
 
 let id = 0
-let phaseId = 0
-let abilityId = 0
 
 const state = reactive({
   list: getInitList(),
@@ -115,30 +116,6 @@ export function createId() {
   }
 }
 
-export function createPhaseId() {
-  return phaseId++
-}
-
-export function createAbilityId() {
-  return abilityId++
-}
-
-export function createPhase(): ITimelinePhase {
-  return {
-    _id: createPhaseId(),
-    name: '',
-    regexp: '',
-    _regexp: new RegExp(''),
-  }
-}
-
-export function createAbility(): ITimelineAbility {
-  return {
-    _id: createAbilityId(),
-    name: '',
-  }
-}
-
 export function stringifyKey(item: IReferenceKey & IReferenceKeyExtra) {
   const obj = pick(item, ['id', 'title', 'updatedAt', 'createdAt'])
   return JSON.stringify(obj)
@@ -166,14 +143,4 @@ function getInitList() {
   })
 
   return list
-}
-
-export function createEmptyReference(): IReference {
-  return {
-    id: 0,
-    title: '',
-    phases: [],
-    list: [],
-    abilities: [],
-  }
 }

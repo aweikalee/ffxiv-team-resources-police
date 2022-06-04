@@ -41,17 +41,36 @@
       preset="card"
       title="详情"
       closable
+      :auto-focus="false"
     >
       <TimelineDetail v-if="detail" :detail="detail" />
+
+      <template #footer>
+        <n-space justify="end">
+          <n-button @click="showDetail = false">关闭</n-button>
+          <n-button type="primary" @click="openEditor">编辑</n-button>
+        </n-space>
+      </template>
     </n-modal>
+
+    <WaitNext v-model:show="showEditor">
+      <TimelineEditor
+        v-if="detail"
+        :detail="detail"
+        @success="showEditor = false"
+        @cancel="showEditor = false"
+      />
+    </WaitNext>
   </n-scrollbar>
 </template>
 
 <script lang="ts" setup>
 import { combat, reference, logs } from '@/store'
 
+import WaitNext from '@/components/Basic/WaitNext.vue'
 import TimeLinePhase from './Phase.vue'
 import TimelineDetail from './Detail.vue'
+import TimelineEditor from './Editor.vue'
 
 import { INJECT_KEY } from './inject'
 
@@ -100,6 +119,13 @@ provide(INJECT_KEY, {
     detail.value = item
   },
 })
+
+/* 编辑详情 */
+const showEditor = ref(false)
+function openEditor() {
+  showDetail.value = false
+  showEditor.value = true
+}
 </script>
 
 <style lang="less">

@@ -1,4 +1,5 @@
 export * from './common'
 export * from './dayjs'
 export * from './storage'
+export * from './useMessage'
 export * as logLine from './logLine'

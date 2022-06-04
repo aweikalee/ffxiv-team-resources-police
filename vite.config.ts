@@ -13,6 +13,13 @@ export default defineConfig({
     target: 'es2015',
     cssCodeSplit: false,
     cssTarget: 'chrome61',
+
+    rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, 'index.html'),
+        'reference-row': path.resolve(__dirname, 'reference-row.html'),
+      },
+    },
   },
   esbuild: {
     jsxFactory: 'h',

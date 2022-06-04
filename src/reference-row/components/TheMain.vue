@@ -15,38 +15,17 @@
     </template>
   </n-card>
 
-  <n-space
-    v-else-if="showPlaceholder"
-    justify="center"
-    align="center"
-    style="min-height: 100vh"
-  >
-    <n-result v-if="maybeError.loading" title="等待以太连接中...">
-      <template #icon>
-        <n-spin />
-      </template>
-    </n-result>
-
-    <n-result
-      v-else
-      title="以太连接失败"
-      description="以太浓度过低，请重新从主界面打开"
-      status="error"
-      size="small"
-    />
-  </n-space>
+  <WaitParent v-else />
 </template>
 
 <script setup lang="ts">
-import { useTimeout } from '@vueuse/core'
 import { useMessage, postMessage, useMessageLoading } from '@/utils/useMessage'
+
+import WaitParent from '@/components/Basic/WaitParent.vue'
 import Form, { ITimelineReferenceFormIns } from './Form.vue'
 
 const form = ref<Partial<ITimelineReference>>()
 const phases = ref<ITimelinePhase[]>([])
-
-const showPlaceholder = useTimeout(100)
-const maybeError = useMessageLoading()
 
 const formRef = ref<ITimelineReferenceFormIns>()
 
@@ -76,7 +55,7 @@ useMessage('reference-row@save:replay', () => {
 
 /* 其他 */
 function cancel() {
-  postMessage(window.opener, 'reference-row@close', {})
+  postMessage(window.opener, '@close', {})
   window.close()
 }
 </script>

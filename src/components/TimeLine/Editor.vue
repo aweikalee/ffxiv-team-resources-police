@@ -33,7 +33,7 @@ useMessage('reference-row@save', (data, e) => {
   emit('success')
 })
 
-useMessage('reference-row@close', () => {
+useMessage('@close', () => {
   emit('cancel')
 })
 </script>

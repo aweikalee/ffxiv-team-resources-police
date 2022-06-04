@@ -8,6 +8,17 @@ import { useTimeout } from '@vueuse/core'
  */
 
 export type IMessageEvent = {
+  '@close': {}
+
+  /* 参考时间轴 */
+  'reference@loaded': {}
+  'reference@loaded:replay': {
+    form: IReference
+  }
+  'reference@save': IReference
+  'reference@save:replay': {}
+
+  /* 参考时间轴 技能行 */
   'reference-row@loaded': {}
   'reference-row@loaded:replay': {
     phases: ITimelinePhase[]
@@ -15,7 +26,6 @@ export type IMessageEvent = {
   }
   'reference-row@save': ITimelineReference
   'reference-row@save:replay': {}
-  'reference-row@close': {}
 }
 
 const MESSAGE_SYMBOL = '__MESSAGE_SYMBOL__'

@@ -48,7 +48,12 @@
       <template #footer>
         <n-space justify="end">
           <n-button @click="showDetail = false">关闭</n-button>
-          <n-button type="primary" @click="openEditor">编辑</n-button>
+          <n-button
+            v-if="detail?._type === 'reference'"
+            type="primary"
+            @click="openEditor"
+            >编辑</n-button
+          >
         </n-space>
       </template>
     </n-modal>

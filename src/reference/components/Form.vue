@@ -30,13 +30,6 @@
 
 <script lang="tsx" setup>
 import {
-  createPhase,
-  createAbility,
-  createEmptyReference,
-  createPhaseId,
-  createAbilityId,
-} from '@/utils'
-import {
   DataTableColumns,
   FormInst,
   FormRules,
@@ -45,26 +38,28 @@ import {
   NInputNumber,
 } from 'naive-ui'
 
+import { cloneDeep } from 'lodash'
+
+import {
+  createPhase,
+  createAbility,
+  createTempId,
+  createEmptyReference,
+} from '@/utils'
+
 export type IReferenceFormIns = {
   validate: () => Promise<IReference>
 }
 
 const props = defineProps<{
-  initForm?: IReference
+  initForm: Partial<IReference>
 }>()
 
 /* 表单基础 */
-const form = ref<IReference>(
-  props.initForm
-    ? {
-        id: props.initForm.id,
-        title: props.initForm.title,
-        phases: props.initForm.phases.map((v) => ({ ...v })),
-        list: props.initForm.list.map((v) => [...v]),
-        abilities: props.initForm.abilities.map((v) => ({ ...v })),
-      }
-    : createEmptyReference()
-)
+const form = ref<IReference>({
+  ...createEmptyReference(),
+  ...cloneDeep(props.initForm),
+})
 
 const rules: FormRules = {
   zone: {
@@ -122,7 +117,7 @@ async function validate() {
         return
       }
 
-      resolve(form.value)
+      resolve(cloneDeep(form.value))
     })
   })
 }
@@ -131,7 +126,7 @@ async function validate() {
 function addPhaseRow() {
   form.value.phases.push(
     createPhase({
-      _id: createPhaseId(),
+      _id: createTempId(),
     })
   )
 }
@@ -193,11 +188,7 @@ const phaseColumns: DataTableColumns<IReference['phases'][0]> = [
 
 /* 技能列表相关 */
 function addAbilitiesRow() {
-  form.value.abilities.push(
-    createAbility({
-      _id: createAbilityId(),
-    })
-  )
+  form.value.abilities.push(createAbility())
 }
 function removeAbilitiesRow(index: number) {
   form.value.abilities.splice(index, 1)

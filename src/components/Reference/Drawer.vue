@@ -40,31 +40,24 @@
     </n-drawer-content>
   </n-drawer>
 
-  <n-modal
-    v-model:show="showEditor"
-    style="width: 600px"
-    preset="card"
-    title="编辑"
-    closable
-  >
-    <ReferenceForm ref="editorRef" :initForm="editorForm" />
-
-    <template #footer>
-      <n-space justify="end">
-        <n-button @click="showEditor = false">取消</n-button>
-        <n-button type="primary" @click="editorSave">保存</n-button>
-      </n-space>
-    </template>
-  </n-modal>
+  <WaitNext v-model:show="showEditor">
+    <ReferenceEditor
+      v-if="editorForm"
+      :detail="editorForm"
+      @success="showEditor = false"
+      @cancel="showEditor = false"
+    />
+  </WaitNext>
 </template>
 
 <script lang="ts" setup>
 import { useThemeVars } from 'naive-ui'
 
 import { reference, referenceStorage } from '@/store'
-import { dayjs } from '@/utils'
+import { createEmptyReference, dayjs } from '@/utils'
 
-import ReferenceForm, { IReferenceFormIns } from './Form.vue'
+import WaitNext from '@/components/Basic/WaitNext.vue'
+import ReferenceEditor from './Editor.vue'
 
 defineProps<{
   show: boolean
@@ -86,7 +79,6 @@ function selectReference(item: IReferenceKey) {
 }
 
 /* 编辑 */
-const editorRef = ref<IReferenceFormIns>()
 const showEditor = ref(false)
 const editorForm = ref<IReference>()
 function openEditor(item?: IReferenceKey) {
@@ -99,20 +91,10 @@ function openEditor(item?: IReferenceKey) {
       return
     }
   } else {
-    editorForm.value = undefined
+    editorForm.value = createEmptyReference()
   }
 
   showEditor.value = true
-}
-async function editorSave() {
-  const form = await editorRef.value?.validate()!
-
-  referenceStorage.set(form)
-  showEditor.value = false
-
-  if (form.id === reference.current.id) {
-    reference.restore(form.id)
-  }
 }
 
 /* 删除 */

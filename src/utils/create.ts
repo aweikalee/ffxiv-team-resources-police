@@ -48,7 +48,7 @@ export function createEmptyReference(
   return {
     id: 0,
     title: '',
-    phases: [],
+    phases: [createPhase()],
     list: [],
     abilities: [],
     ...overwrite,

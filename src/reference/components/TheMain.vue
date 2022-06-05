@@ -1,5 +1,5 @@
 <template>
-  <n-card v-if="form" :title="form.id ? '新建' : '编辑'" style="height: 100vh">
+  <n-card v-if="form" :title="form.id ? '编辑' : '新建'" style="height: 100vh">
     <Form ref="formRef" :init-form="form" />
 
     <template #footer>

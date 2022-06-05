@@ -35,48 +35,25 @@
   <ReferenceDrawer v-model:show="showReferenceDrawer" />
 
   <!-- 保存 -->
-  <n-modal
-    v-model:show="showSaveDialog"
-    preset="dialog"
-    title="设置标题"
-    positive-text="保存"
-    negative-text="取消"
-    @positive-click="saveAs"
-  >
-    <n-input
-      v-model:value="saveForm.title"
-      placeholder="请输入标题"
-      :maxlength="30"
-      show-count
-      clearable
+  <WaitNext v-model:show="showSaveAs">
+    <ReferenceEditor
+      v-if="saveAsForm"
+      :detail="saveAsForm"
+      @success="onSaveAsSuccess"
+      @cancel="showSaveAs = false"
     />
-  </n-modal>
+  </WaitNext>
 </template>
 
 <script lang="ts" setup>
 import { combat, reference, logs } from '@/store'
+import { toReference } from '@/utils/logLine'
 import { SelectMixedOption } from 'naive-ui/es/select/src/interface'
 
 import DeveloperOrigin from './Basic/Developer.vue'
+import WaitNext from './Basic/WaitNext.vue'
 import ReferenceDrawer from './Reference/Drawer.vue'
-
-/* 保存 */
-function save(form: IReferenceKey) {
-  const item: IReference = {
-    ...form,
-    list: logs.list as any,
-    phases: reference.current.phases,
-    abilities: reference.current.abilities,
-  }
-
-  const id = reference.save(item)
-  reference.restore(id)
-  window.$message.success('保存成功')
-
-  if (!item.id) {
-    window.$message.success(`已切换至 ${item.title}`)
-  }
-}
+import ReferenceEditor from './Reference/Editor.vue'
 
 // 覆盖保存
 function saveReplace() {
@@ -86,28 +63,23 @@ function saveReplace() {
     positiveText: '确定',
     negativeText: '取消',
     onPositiveClick: () => {
-      save(reference.current)
+      const id = reference.save({
+        ...reference.current,
+        list: logs.list as any,
+      })
+      reference.restore(id)
+      window.$message.success('保存成功')
     },
   })
 }
 
 // 另存为
-const showSaveDialog = ref(false)
-const saveForm = reactive({
-  title: '',
-})
-function saveAs() {
-  if (!saveForm.title) {
-    window.$message.error('请输入标题')
-    return false
-  }
+const showSaveAs = ref(false)
+const saveAsForm = ref<IReference>()
 
-  save({
-    id: 0,
-    ...saveForm,
-  })
-
-  saveForm.title = ''
+function onSaveAsSuccess(id: number) {
+  showSaveAs.value = false
+  reference.restore(id)
 }
 
 const saveOptions: SelectMixedOption[] = [
@@ -120,7 +92,12 @@ const saveOptions: SelectMixedOption[] = [
     label: '另存为',
     value: '另存为',
     onClick: () => {
-      showSaveDialog.value = true
+      showSaveAs.value = true
+      saveAsForm.value = {
+        ...reference.current,
+        id: 0,
+        list: logs.list.map((arr) => arr.map((log) => toReference(log))),
+      }
     },
   },
 ]

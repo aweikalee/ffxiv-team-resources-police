@@ -44,7 +44,7 @@
     <ReferenceEditor
       v-if="editorForm"
       :detail="editorForm"
-      @success="showEditor = false"
+      @success="onSuccess"
       @cancel="showEditor = false"
     />
   </WaitNext>
@@ -95,6 +95,13 @@ function openEditor(item?: IReferenceKey) {
   }
 
   showEditor.value = true
+}
+
+function onSuccess(id: number) {
+  showEditor.value = false
+  if (id === reference.current.id) {
+    reference.restore(id)
+  }
 }
 
 /* 删除 */

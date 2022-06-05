@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import { useCombat, combat, logs, reference } from '@/store'
+import { useCombat, combat, logs, reference, referenceStorage } from '@/store'
 import { dayjs } from '@/utils'
 
 import TimeLine from './TimeLine/Index.vue'
@@ -50,13 +50,6 @@ watch(
       }
       combat.setPhaseStartTime(Date.now() - offset)
     }
-  }
-)
-
-watch(
-  () => combat.zoneName,
-  (zoneName) => {
-    // TODO: 获取关联参考时间轴
   }
 )
 

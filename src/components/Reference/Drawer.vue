@@ -86,7 +86,7 @@
 <script lang="ts" setup>
 import { useThemeVars } from 'naive-ui'
 
-import { reference, referenceStorage } from '@/store'
+import { combat, reference, referenceStorage } from '@/store'
 import { createEmptyReference, dayjs } from '@/utils'
 
 import WaitNext from '@/components/Basic/WaitNext.vue'
@@ -166,6 +166,33 @@ const tabs = computed(() => [
   },
 ])
 const actvieTab = ref(tabs.value[0].name)
+
+/* 地区变更 自动打开 */
+watch(
+  () => combat.zoneName,
+  () => {
+    const length = referenceStorage.currentZoneList.length
+    if (length === 1) {
+      window.$dialog.success({
+        title: '提示',
+        content: '发现当前地图有且仅有1个参考时间轴，是否直接切换？',
+        positiveText: '切换',
+        negativeText: '取消',
+        onPositiveClick() {
+          emit('update:show', false)
+          const first = referenceStorage.currentZoneList[0]
+          reference.restore(first.id)
+          window.$message.success(`已切换至 ${first.title}`)
+        },
+      })
+    } else if (length === 0) {
+    } else {
+      emit('update:show', true)
+      window.$message.info(`发现当前地图有${length}个参考时间轴，请选择`)
+      actvieTab.value = tabs.value[0].name
+    }
+  }
+)
 
 const themeRef = useThemeVars()
 const themeVar = computed(() => {

@@ -20,7 +20,9 @@
       offsetSeconds
     }}</span>
 
-    <span class="timeline__row-source">({{ data.source }})</span>
+    <span class="timeline__row-source" v-if="data.source"
+      >({{ data.source }})</span
+    >
 
     <template v-if="isHover">
       <n-button

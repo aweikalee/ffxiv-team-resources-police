@@ -1,11 +1,7 @@
 <template>
   <n-form ref="formRef" :label-width="80" :model="form" :rules="rules">
     <n-form-item path="ability" label="技能名称">
-      <n-input v-model:value="form.ability" placeholder="输入技能名称" />
-    </n-form-item>
-
-    <n-form-item path="source" label="使用者名称">
-      <n-input v-model:value="form.source" placeholder="输入使用者名称">
+      <n-input v-model:value="form.ability" placeholder="输入技能名称">
         <template #suffix>
           <n-switch
             v-model:value="form.isHostile"
@@ -20,6 +16,11 @@
             <template #unchecked>友</template>
           </n-switch>
         </template>
+      </n-input>
+    </n-form-item>
+
+    <n-form-item path="source" label="使用者名称">
+      <n-input v-model:value="form.source" placeholder="输入使用者名称">
       </n-input>
     </n-form-item>
 
@@ -67,23 +68,6 @@ const rules: FormRules = {
     {
       required: true,
       message: '技能名不能为空',
-      trigger: 'blur',
-    },
-  ],
-
-  source: [
-    {
-      required: true,
-      message: '使用者名称不能为空',
-      trigger: 'blur',
-    },
-  ],
-
-  isHostile: [
-    {
-      required: true,
-      type: 'boolean',
-      message: '是敌是友？不能为空',
       trigger: 'blur',
     },
   ],

@@ -1,5 +1,5 @@
 <template>
-  <n-card v-if="form" style="height: 100vh">
+  <n-card v-if="form" style="min-height: 100vh">
     <Form ref="formRef" :init-form="form" :phases="phases" />
 
     <template #footer>

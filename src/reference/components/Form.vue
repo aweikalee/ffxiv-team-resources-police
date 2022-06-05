@@ -4,6 +4,17 @@
       <n-input v-model:value="form.title" placeholder="输入标题" />
     </n-form-item>
 
+    <n-form-item label="副本名称" path="zoneName">
+      <n-space vertical style="width: 100%">
+        <n-input v-model:value="form.zoneName" placeholder="输入副本名称" />
+        <div v-if="zoneName">
+          <n-button quaternary @click="form.zoneName = zoneName"
+            >当前区域：{{ zoneName }}</n-button
+          >
+        </div>
+      </n-space>
+    </n-form-item>
+
     <n-form-item label="阶段" path="phase">
       <n-data-table
         :columns="phaseColumns"
@@ -53,6 +64,7 @@ export type IReferenceFormIns = {
 
 const props = defineProps<{
   initForm: Partial<IReference>
+  zoneName: string
 }>()
 
 /* 表单基础 */

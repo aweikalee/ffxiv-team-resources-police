@@ -59,6 +59,7 @@ type ITimelineAbility = {
 type IReferenceKey = {
   id: number
   title: string
+  zoneName: string
 }
 
 type IReferenceKeyExtra = {

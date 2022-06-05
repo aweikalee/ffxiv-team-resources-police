@@ -48,6 +48,7 @@ export function createEmptyReference(
   return {
     id: 0,
     title: '',
+    zoneName: '',
     phases: [createPhase()],
     list: [],
     abilities: [],

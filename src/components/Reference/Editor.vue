@@ -2,7 +2,7 @@
 
 <script lang="ts" setup>
 import { cloneDeep } from 'lodash'
-import { referenceStorage } from '@/store'
+import { combat, referenceStorage } from '@/store'
 import { useMessage, postMessage, useOpenWindow } from '@/utils'
 
 const props = defineProps<{
@@ -22,6 +22,7 @@ useOpenWindow('./reference.html', {
 useMessage('reference@loaded', (_, { source }) => {
   postMessage(source!, 'reference@loaded:replay', {
     form: cloneDeep(props.detail),
+    zoneName: combat.zoneName,
   })
 })
 

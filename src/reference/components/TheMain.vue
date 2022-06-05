@@ -1,6 +1,10 @@
 <template>
-  <n-card v-if="form" :title="form.id ? '编辑' : '新建'" style="height: 100vh">
-    <Form ref="formRef" :init-form="form" />
+  <n-card
+    v-if="form"
+    :title="form.id ? '编辑' : '新建'"
+    style="min-height: 100vh"
+  >
+    <Form ref="formRef" :init-form="form" :zone-name="zoneName" />
 
     <template #footer>
       <n-space justify="center">
@@ -25,6 +29,7 @@ import WaitParent from '@/components/Basic/WaitParent.vue'
 import Form, { IReferenceFormIns } from './Form.vue'
 
 const form = ref<Partial<IReference>>()
+const zoneName = ref('')
 
 const formRef = ref<IReferenceFormIns>()
 
@@ -32,6 +37,7 @@ const formRef = ref<IReferenceFormIns>()
 postMessage(window.opener!, 'reference@loaded', {})
 useMessage('reference@loaded:replay', (data) => {
   form.value = data.form ?? {}
+  zoneName.value = data.zoneName || ''
 })
 
 // 提交表单

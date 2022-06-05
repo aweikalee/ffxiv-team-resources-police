@@ -14,6 +14,7 @@ export type IMessageEvent = {
   'reference@loaded': {}
   'reference@loaded:replay': {
     form: IReference
+    zoneName: string
   }
   'reference@save': IReference
   'reference@save:replay': {}

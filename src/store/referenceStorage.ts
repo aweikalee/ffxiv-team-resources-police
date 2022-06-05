@@ -10,14 +10,23 @@ import {
   createAbilityId,
   createEmptyReference,
 } from '@/utils'
+import { combat } from './combat'
 
 let id = 0
 
+const list = ref(getInitList())
+const currentZoneList = computed(() => {
+  return combat.zoneName
+    ? list.value.filter((item) => item.zoneName === combat.zoneName)
+    : []
+})
+
 const state = reactive({
-  list: getInitList(),
+  list,
+  currentZoneList,
 
   get(id: number): IReference {
-    const find = id ? state.list.find((i) => i.id === id) : null
+    const find = id ? list.value.find((i) => i.id === id) : null
 
     if (!find) {
       return createEmptyReference()
@@ -31,6 +40,7 @@ const state = reactive({
         ...data,
         id: find.id,
         title: find.title,
+        zoneName: find.zoneName,
         phases: (data.phases ?? []).map((v) => ({
           ...v,
           _id: createPhaseId(),
@@ -59,21 +69,23 @@ const state = reactive({
     }
   ) {
     // 更新列表
-    let find = state.list.find((v) => v.id === item.id)
+    let find = list.value.find((v) => v.id === item.id)
     if (find) {
       removeStorage(find._key)
       find.title = item.title
+      find.zoneName = item.zoneName
       find.updatedAt = Date.now()
     } else {
       find = {
         id: createId(),
         _key: '',
         title: item.title,
+        zoneName: item.zoneName,
         createdAt: Date.now(),
         updatedAt: Date.now(),
       }
 
-      state.list.push(find)
+      list.value.push(find)
     }
 
     find._key = stringifyKey(find) // 更新 _key
@@ -97,9 +109,9 @@ const state = reactive({
   },
 
   remove(id: number) {
-    const index = state.list.findIndex((v) => v.id === id)
+    const index = list.value.findIndex((v) => v.id === id)
     if (~index) {
-      const [value] = state.list.splice(index, 1)
+      const [value] = list.value.splice(index, 1)
       removeStorage(value._key)
     }
   },
@@ -110,14 +122,14 @@ export const referenceStorage = readonly(state) as typeof state
 export function createId() {
   while (true) {
     id += 1
-    if (!state.list.find((v) => v.id === id)) {
+    if (!list.value.find((v) => v.id === id)) {
       return id
     }
   }
 }
 
 export function stringifyKey(item: IReferenceKey & IReferenceKeyExtra) {
-  const obj = pick(item, ['id', 'title', 'updatedAt', 'createdAt'])
+  const obj = pick(item, ['id', 'title', 'zoneName', 'updatedAt', 'createdAt'])
   return JSON.stringify(obj)
 }
 

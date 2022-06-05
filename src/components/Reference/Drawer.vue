@@ -8,31 +8,64 @@
     :style="themeVar"
   >
     <n-drawer-content closable title="参考时间轴">
-      <n-popover v-for="item in list" scrollable placement="bottom-end">
-        <template #trigger>
-          <div
-            class="reference-list__drawer-item"
-            :class="{ active: item.id === reference.current.id }"
-            @click="selectReference(item)"
-          >
-            <div>[{{ item.id }}]{{ item.title }}</div>
-            <div>
-              创建时间 {{ dayjs(item.createdAt).format('YYYY-MM-DD HH:mm') }}
-            </div>
-            <div>
-              最后更新 {{ dayjs(item.updatedAt).format('YYYY-MM-DD HH:mm') }}
-            </div>
-          </div>
-        </template>
+      <n-tabs v-model:value="actvieTab" type="segment" animated>
+        <n-tab-pane
+          v-for="tab in tabs"
+          :name="tab.name"
+          :tab="tab.name"
+          :key="tab.name"
+        >
+          <n-list>
+            <n-list-item
+              class="reference-list__drawer-item"
+              v-for="item in tab.list"
+              :key="item.id"
+              @click="selectReference(item)"
+            >
+              <n-space vertical>
+                <div>
+                  <svg
+                    v-if="item.id === reference.current.id"
+                    class="reference-list__drawer-item--active"
+                    viewBox="0 0 1024 1024"
+                    version="1.1"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M630.048 387.76l191.712 27.872c12.88 1.904 24.272 10.128 29.056 23.84 3.424 11.744 0.16 24.16-8.528 32.768l-0.144 0.16-140.4 137.12 32.528 190.208c2.304 13.04-3.488 25.328-14.192 32.72-10.96 7.424-26.784 8.16-38.464 2.224l-167.632-88.4-167.28 88.384c-11.84 6.128-27.36 5.456-37.6-1.568-10.336-6.496-17.968-18-15.264-33.328l32.64-190.32-140.544-137.2c-8.912-8.848-12.448-21.968-8.048-33.744 4.416-12.56 15.616-20.832 28.608-22.784l191.856-27.952 83.488-169.648c6.08-12.08 18.928-19.264 32.32-19.264 13.6 0 26.768 7.2 32.496 19.456l83.392 169.44z m-6.992 47.488a46.832 46.832 0 0 1-35.84-25.792l-73.008-148.4-73.184 148.688a47.536 47.536 0 0 1-35.408 25.456l-164.368 23.968 119.04 116.192c11.2 10.784 16.24 26.384 13.6 41.6l-28.096 163.904 146.416-77.376a47.648 47.648 0 0 1 43.84 0.16l146.288 77.12-28-163.68c-2.624-15.2 2.432-30.72 13.488-41.52l119.232-116.48-164-23.84z"
+                    ></path>
+                  </svg>
+                  {{ item.title }}
+                </div>
+                <div>
+                  [{{ dayjs(item.updatedAt).format('MM-DD HH:mm') }}]
+                  {{ item.zoneName }}
+                </div>
+              </n-space>
 
-        <n-space>
-          <n-button type="primary" secondary @click="openEditor(item)"
-            >编辑</n-button
-          >
+              <template #suffix>
+                <n-space vertical>
+                  <n-button
+                    type="primary"
+                    size="tiny"
+                    secondary
+                    @click.stop="openEditor(item)"
+                    >编辑</n-button
+                  >
 
-          <n-button type="error" secondary @click="remove(item)">删除</n-button>
-        </n-space>
-      </n-popover>
+                  <n-button
+                    type="error"
+                    size="tiny"
+                    secondary
+                    @click.stop="remove(item)"
+                    >删除</n-button
+                  >
+                </n-space>
+              </template>
+            </n-list-item>
+          </n-list>
+        </n-tab-pane>
+      </n-tabs>
 
       <template #footer>
         <n-button type="primary" @click="openEditor()">新建</n-button>
@@ -122,6 +155,18 @@ function remove(item: IReferenceKey) {
   })
 }
 
+const tabs = computed(() => [
+  {
+    name: '当前区域',
+    list: referenceStorage.currentZoneList,
+  },
+  {
+    name: '全部',
+    list: referenceStorage.list,
+  },
+])
+const actvieTab = ref(tabs.value[0].name)
+
 const themeRef = useThemeVars()
 const themeVar = computed(() => {
   const theme = themeRef.value
@@ -145,11 +190,9 @@ const themeVar = computed(() => {
   max-width: 300px;
 
   .reference-list__drawer-item {
-    display: block;
-    padding: 4px 6px;
     cursor: pointer;
-    text-align: center;
-    background-color: rgba(#999, 0.1);
+    padding: 8px;
+    user-select: none;
 
     &:hover {
       background-color: rgba(#999, 0.2);
@@ -159,12 +202,10 @@ const themeVar = computed(() => {
       opacity: 0.8;
     }
 
-    &.active {
-      color: var(--a-primary-color);
-    }
-
-    & + .reference-list__drawer-item {
-      margin-top: 10px;
+    .reference-list__drawer-item--active {
+      fill: var(--a-primary-color);
+      width: 1.5em;
+      vertical-align: -0.3em;
     }
   }
 }

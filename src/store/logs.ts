@@ -20,7 +20,7 @@ const state = reactive({
   getLast() {
     const { list } = state
     for (let i = list.length - 1; i >= 0; i -= 1) {
-      const phase = list[i]
+      const phase = list[i] ?? []
       if (phase.length) return phase[phase.length - 1]
     }
   },
@@ -29,7 +29,7 @@ const state = reactive({
     const { list } = state
 
     for (let i = list.length - 1; i >= 0; i -= 1) {
-      const phase = list[i]
+      const phase = list[i] ?? []
       for (let j = phase.length - 1; j >= 0; j -= 1) {
         const row = phase[j]
         if (row.ability === item.ability && row.source === item.source)

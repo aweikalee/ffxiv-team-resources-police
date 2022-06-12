@@ -96,7 +96,9 @@ const saveOptions: SelectMixedOption[] = [
       saveAsForm.value = {
         ...reference.current,
         id: 0,
-        list: logs.list.map((arr) => arr.map((log) => toReference(log))),
+        list: logs.list.map((arr) =>
+          (arr ?? []).map((log) => toReference(log))
+        ),
       }
     },
   },

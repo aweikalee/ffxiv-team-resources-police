@@ -1,5 +1,5 @@
 <template>
-  <n-scrollbar ref="el">
+  <NScrollbar ref="el">
     <div class="timeline">
       <div class="timeline__header timeline__header--title">
         <div class="timeline__time">
@@ -35,7 +35,7 @@
       </template>
     </div>
 
-    <n-modal
+    <NModal
       v-model:show="showDetail"
       style="width: 600px"
       preset="card"
@@ -46,17 +46,17 @@
       <TimelineDetail v-if="detail" :detail="detail" />
 
       <template #footer>
-        <n-space justify="end">
-          <n-button @click="showDetail = false">关闭</n-button>
-          <n-button
+        <NSpace justify="end">
+          <NButton @click="showDetail = false">关闭</NButton>
+          <NButton
             v-if="detail?._type === 'reference'"
             type="primary"
             @click="openEditor"
-            >编辑</n-button
+            >编辑</NButton
           >
-        </n-space>
+        </NSpace>
       </template>
-    </n-modal>
+    </NModal>
 
     <WaitNext v-model:show="showEditor">
       <TimelineEditor
@@ -66,7 +66,7 @@
         @cancel="showEditor = false"
       />
     </WaitNext>
-  </n-scrollbar>
+  </NScrollbar>
 </template>
 
 <script lang="ts" setup>

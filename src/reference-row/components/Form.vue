@@ -1,9 +1,9 @@
 <template>
-  <n-form ref="formRef" :label-width="80" :model="form" :rules="rules">
-    <n-form-item path="ability" label="技能名称">
-      <n-input v-model:value="form.ability" placeholder="输入技能名称">
+  <NForm ref="formRef" :label-width="80" :model="form" :rules="rules">
+    <NFormItem path="ability" label="技能名称">
+      <NInput v-model:value="form.ability" placeholder="输入技能名称">
         <template #suffix>
-          <n-switch
+          <NSwitch
             v-model:value="form.isHostile"
             :rail-style="
               ({ checked }) =>
@@ -14,24 +14,23 @@
           >
             <template #checked>敌</template>
             <template #unchecked>友</template>
-          </n-switch>
+          </NSwitch>
         </template>
-      </n-input>
-    </n-form-item>
+      </NInput>
+    </NFormItem>
 
-    <n-form-item path="source" label="使用者名称">
-      <n-input v-model:value="form.source" placeholder="输入使用者名称">
-      </n-input>
-    </n-form-item>
+    <NFormItem path="source" label="使用者名称">
+      <NInput v-model:value="form.source" placeholder="输入使用者名称" />
+    </NFormItem>
 
-    <n-form-item path="phase" label="阶段">
-      <n-select v-model:value="form.phase" :options="phaseOptions" clearable />
-    </n-form-item>
+    <NFormItem path="phase" label="阶段">
+      <NSelect v-model:value="form.phase" :options="phaseOptions" clearable />
+    </NFormItem>
 
-    <n-form-item path="timestamp" label="使用时间">
-      <n-input v-model:value="form.timestamp" />
-    </n-form-item>
-  </n-form>
+    <NFormItem path="timestamp" label="使用时间">
+      <NInput v-model:value="form.timestamp" />
+    </NFormItem>
+  </NForm>
 </template>
 
 <script lang="tsx" setup>

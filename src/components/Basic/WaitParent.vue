@@ -1,29 +1,29 @@
 <template>
-  <n-card
+  <NCard
     v-if="show"
     class="wait-parent"
     :style="{
       backgroundColor: themeVars.cardColor,
     }"
   >
-    <n-result v-if="maybeError.loading" title="等待主窗口连接中...">
+    <NResult v-if="maybeError.loading" title="等待主窗口连接中...">
       <template #icon>
-        <n-spin />
+        <NSpin />
       </template>
-    </n-result>
+    </NResult>
 
-    <n-result
+    <NResult
       v-else
       title="连接失败"
       description="无法连接主窗口，请重新从主窗口打开"
       status="error"
       size="small"
     >
-      <n-space justify="center">
-        <n-button @click="close">关闭</n-button>
-      </n-space>
-    </n-result>
-  </n-card>
+      <NSpace justify="center">
+        <NButton @click="close">关闭</NButton>
+      </NSpace>
+    </NResult>
+  </NCard>
 </template>
 
 <script lang="ts" setup>

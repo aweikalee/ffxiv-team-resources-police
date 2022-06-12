@@ -9,8 +9,8 @@
     </div>
 
     <div class="the-header__toolbar">
-      <n-space>
-        <n-button
+      <NSpace>
+        <NButton
           type="primary"
           round
           size="tiny"
@@ -18,16 +18,16 @@
           @click="showReferenceDrawer = true"
         >
           时间轴
-        </n-button>
+        </NButton>
 
-        <n-popselect :options="saveOptions" @update:value="onSavePopChange">
-          <n-button type="primary" round size="tiny" title="保存当前战斗">
+        <NPopselect :options="saveOptions" @update:value="onSavePopChange">
+          <NButton type="primary" round size="tiny" title="保存当前战斗">
             保存
-          </n-button>
-        </n-popselect>
+          </NButton>
+        </NPopselect>
 
         <Developer />
-      </n-space>
+      </NSpace>
     </div>
   </div>
 

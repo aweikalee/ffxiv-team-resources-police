@@ -1,5 +1,5 @@
 <template>
-  <n-drawer
+  <NDrawer
     :show="show"
     @update:show="(v) => emit('update:show', v)"
     placement="right"
@@ -7,22 +7,22 @@
     :auto-focus="false"
     :style="themeVar"
   >
-    <n-drawer-content closable title="参考时间轴">
-      <n-tabs v-model:value="actvieTab" type="segment" animated>
-        <n-tab-pane
+    <NDrawerContent closable title="参考时间轴">
+      <NTabs v-model:value="actvieTab" type="segment" animated>
+        <NTabPane
           v-for="tab in tabs"
           :name="tab.name"
           :tab="tab.name"
           :key="tab.name"
         >
-          <n-list>
-            <n-list-item
+          <NList>
+            <NListItem
               class="reference-list__drawer-item"
               v-for="item in tab.list"
               :key="item.id"
               @click="selectReference(item)"
             >
-              <n-space vertical>
+              <NSpace vertical>
                 <div>
                   <svg
                     v-if="item.id === reference.current.id"
@@ -41,37 +41,37 @@
                   [{{ dayjs(item.updatedAt).format('MM-DD HH:mm') }}]
                   {{ item.zoneName }}
                 </div>
-              </n-space>
+              </NSpace>
 
               <template #suffix>
-                <n-space vertical>
-                  <n-button
+                <NSpace vertical>
+                  <NButton
                     type="primary"
                     size="tiny"
                     secondary
                     @click.stop="openEditor(item)"
-                    >编辑</n-button
+                    >编辑</NButton
                   >
 
-                  <n-button
+                  <NButton
                     type="error"
                     size="tiny"
                     secondary
                     @click.stop="remove(item)"
-                    >删除</n-button
+                    >删除</NButton
                   >
-                </n-space>
+                </NSpace>
               </template>
-            </n-list-item>
-          </n-list>
-        </n-tab-pane>
-      </n-tabs>
+            </NListItem>
+          </NList>
+        </NTabPane>
+      </NTabs>
 
       <template #footer>
-        <n-button type="primary" @click="openEditor()">新建</n-button>
+        <NButton type="primary" @click="openEditor()">新建</NButton>
       </template>
-    </n-drawer-content>
-  </n-drawer>
+    </NDrawerContent>
+  </NDrawer>
 
   <WaitNext v-model:show="showEditor">
     <ReferenceEditor

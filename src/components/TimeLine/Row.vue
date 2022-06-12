@@ -25,7 +25,7 @@
     >
 
     <template v-if="isHover">
-      <n-button
+      <NButton
         v-if="isLog(data)"
         class="timeline__row-fast"
         type="primary"
@@ -33,12 +33,12 @@
         title="加入到参考时间轴"
         @click.stop="reference.add(data)"
       >
-        <n-icon size="1em">
+        <NIcon size="1em">
           <IconIncrease />
-        </n-icon>
-      </n-button>
+        </NIcon>
+      </NButton>
 
-      <n-button
+      <NButton
         v-if="isReference(data)"
         class="timeline__row-fast"
         type="error"
@@ -46,10 +46,10 @@
         title="移除"
         @click.stop="isReference(data) && reference.remove(data)"
       >
-        <n-icon size="1em" class="timeline__row-fast__remove">
+        <NIcon size="1em" class="timeline__row-fast__remove">
           <IconIncrease />
-        </n-icon>
-      </n-button>
+        </NIcon>
+      </NButton>
     </template>
   </div>
 </template>

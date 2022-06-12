@@ -1,19 +1,19 @@
 <template>
-  <n-modal :show="show" preset="card" :closable="false">
-    <n-result title="等待下一步..." description="请在子窗口完成下一步操作">
+  <NModal :show="show" preset="card" :closable="false">
+    <NResult title="等待下一步..." description="请在子窗口完成下一步操作">
       <template #icon>
-        <n-spin />
+        <NSpin />
       </template>
 
-      <n-space justify="center">
-        <n-button type="primary" @click="emit('update:show', false)"
-          >取消</n-button
+      <NSpace justify="center">
+        <NButton type="primary" @click="emit('update:show', false)"
+          >取消</NButton
         >
-      </n-space>
-    </n-result>
+      </NSpace>
+    </NResult>
 
     <slot></slot>
-  </n-modal>
+  </NModal>
 </template>
 
 <script lang="ts" setup>

@@ -1,11 +1,11 @@
 <template>
-  <n-popselect :options="options" @update:value="onPopChange">
-    <n-button type="primary" round size="tiny">调试</n-button>
-  </n-popselect>
+  <NPopselect :options="options" @update:value="onPopChange">
+    <NButton type="primary" round size="tiny">调试</NButton>
+  </NPopselect>
 </template>
 
 <script setup lang="ts">
-import { combat, logs, abilities, reference } from '@/store'
+import { combat, logs, reference } from '@/store'
 import { dayjs, logLine } from '@/utils'
 import { SelectMixedOption } from 'naive-ui/es/select/src/interface'
 

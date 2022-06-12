@@ -1,42 +1,42 @@
 <template>
-  <n-form ref="formRef" :label-width="80" :model="form" :rules="rules">
-    <n-form-item label="标题" path="title">
-      <n-input v-model:value="form.title" placeholder="输入标题" />
-    </n-form-item>
+  <NForm ref="formRef" :label-width="80" :model="form" :rules="rules">
+    <NFormItem label="标题" path="title">
+      <NInput v-model:value="form.title" placeholder="输入标题" />
+    </NFormItem>
 
-    <n-form-item label="副本名称" path="zoneName">
-      <n-space vertical style="width: 100%">
-        <n-input v-model:value="form.zoneName" placeholder="输入副本名称" />
+    <NFormItem label="副本名称" path="zoneName">
+      <NSpace vertical style="width: 100%">
+        <NInput v-model:value="form.zoneName" placeholder="输入副本名称" />
         <div v-if="zoneName">
-          <n-button quaternary @click="form.zoneName = zoneName"
-            >当前区域：{{ zoneName }}</n-button
+          <NButton quaternary @click="form.zoneName = zoneName"
+            >当前区域：{{ zoneName }}</NButton
           >
         </div>
-      </n-space>
-    </n-form-item>
+      </NSpace>
+    </NFormItem>
 
-    <n-form-item label="阶段" path="phase">
-      <n-data-table
+    <NFormItem label="阶段" path="phase">
+      <NDataTable
         :columns="phaseColumns"
         :data="form.phases"
         :row-key="(row) => row._id"
       />
-    </n-form-item>
-    <n-space justify="center" :style="{ paddingBottom: '20px' }">
-      <n-button type="primary" @click="addPhaseRow">增加阶段</n-button>
-    </n-space>
+    </NFormItem>
+    <NSpace justify="center" :style="{ paddingBottom: '20px' }">
+      <NButton type="primary" @click="addPhaseRow">增加阶段</NButton>
+    </NSpace>
 
-    <n-form-item label="记录技能" path="abilities">
-      <n-data-table
+    <NFormItem label="记录技能" path="abilities">
+      <NDataTable
         :columns="abilitiesColumns"
         :data="form.abilities"
         :row-key="(row) => row._id"
       />
-    </n-form-item>
-    <n-space justify="center">
-      <n-button type="primary" @click="addAbilitiesRow">增加技能</n-button>
-    </n-space>
-  </n-form>
+    </NFormItem>
+    <NSpace justify="center">
+      <NButton type="primary" @click="addAbilitiesRow">增加技能</NButton>
+    </NSpace>
+  </NForm>
 </template>
 
 <script lang="tsx" setup>

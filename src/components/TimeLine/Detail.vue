@@ -1,21 +1,21 @@
 <template>
-  <n-form ref="formRef" :label-width="80">
-    <n-form-item label="基本信息">
+  <NForm ref="formRef" :label-width="80">
+    <NFormItem label="基本信息">
       [{{ dayjs.duration(detail.timestamp).format('mm:ss.SSS') }}]
       {{ detail.ability }} ({{ detail.source }})
-    </n-form-item>
+    </NFormItem>
 
-    <n-form-item
+    <NFormItem
       v-if="isLog(detail) && detail._abilityType === 'aoe' && !detail._miss"
       label="范围"
     >
-      <n-space>
-        <n-tag v-for="{ id, name } in detail._targets" :key="id">{{
+      <NSpace>
+        <NTag v-for="{ id, name } in detail._targets" :key="id">{{
           name
-        }}</n-tag>
-      </n-space>
-    </n-form-item>
-  </n-form>
+        }}</NTag>
+      </NSpace>
+    </NFormItem>
+  </NForm>
 </template>
 
 <script lang="ts" setup>

@@ -1,5 +1,5 @@
 <template>
-  <n-config-provider
+  <NConfigProvider
     :theme="darkTheme"
     :theme-overrides="themeOverrides"
     inline-theme-disabled
@@ -9,15 +9,15 @@
     <ThemeProxy>
       <slot></slot>
 
-      <n-message-provider :container-style="{ top: '40px' }">
+      <NMessageProvider :container-style="{ top: '40px' }">
         <MountMessage />
-      </n-message-provider>
+      </NMessageProvider>
 
-      <n-dialog-provider>
+      <NDialogProvider>
         <MountDialog />
-      </n-dialog-provider>
+      </NDialogProvider>
     </ThemeProxy>
-  </n-config-provider>
+  </NConfigProvider>
 </template>
 
 <script setup lang="ts">

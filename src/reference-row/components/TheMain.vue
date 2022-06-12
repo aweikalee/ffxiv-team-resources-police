@@ -1,19 +1,16 @@
 <template>
-  <n-card v-if="form" style="min-height: 100vh">
+  <NCard v-if="form" style="min-height: 100vh">
     <Form ref="formRef" :init-form="form" :phases="phases" />
 
     <template #footer>
-      <n-space justify="center">
-        <n-button @click="cancel">取消</n-button>
-        <n-button
-          type="primary"
-          @click="submit"
-          :loading="submitLoading.loading"
-          >保存</n-button
+      <NSpace justify="center">
+        <NButton @click="cancel">取消</NButton>
+        <NButton type="primary" @click="submit" :loading="submitLoading.loading"
+          >保存</NButton
         >
-      </n-space>
+      </NSpace>
     </template>
-  </n-card>
+  </NCard>
 
   <WaitParent v-else />
 </template>

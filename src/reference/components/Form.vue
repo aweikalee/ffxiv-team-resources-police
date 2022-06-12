@@ -49,7 +49,7 @@ import {
   NInputNumber,
 } from 'naive-ui'
 
-import { cloneDeep } from 'lodash'
+import { cloneDeep } from 'lodash-es'
 
 import {
   createPhase,

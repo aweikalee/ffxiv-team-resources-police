@@ -1,7 +1,7 @@
 <template></template>
 
 <script lang="ts" setup>
-import { cloneDeep } from 'lodash'
+import { cloneDeep } from 'lodash-es'
 import { combat, referenceStorage } from '@/store'
 import { useMessage, postMessage, useOpenWindow } from '@/utils'
 

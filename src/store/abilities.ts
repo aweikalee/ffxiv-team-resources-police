@@ -1,7 +1,7 @@
 import { reference } from './reference'
 
 const map = computed(() => {
-  const map = new Map()
+  const map = new Map<string, ITimelineAbility>()
   reference.current.abilities.forEach((ability) => {
     map.set(ability.name, ability)
   })

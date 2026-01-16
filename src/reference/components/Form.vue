@@ -237,6 +237,20 @@ const abilitiesColumns: DataTableColumns<IReference['abilities'][0]> = [
     },
   },
   {
+    title: '别名',
+    key: 'alias',
+    minWidth: 120,
+    render: (row) => {
+      return (
+        <NInput
+          value={row.alias}
+          onUpdateValue={(v) => (row.alias = v)}
+          placeholder="选填"
+        />
+      )
+    },
+  },
+  {
     title: '操作',
     key: 'action',
     minWidth: 100,

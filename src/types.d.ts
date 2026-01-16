@@ -58,6 +58,7 @@ type ITimelineAbility = {
   _id: number
   name: string
   cd?: number
+  alias?: string
 }
 
 type IReferenceKey = {

@@ -6,7 +6,7 @@
     @click="main?.openDetail(data)"
   >
     <span class="timeline__row-name" :class="{ hostile: data.isHostile }">{{
-      data.ability
+      ability?.alias || ability?.name || data.ability
     }}</span>
 
     <template v-if="isLog(data) && data._abilityType === 'aoe'">
@@ -56,7 +56,7 @@
 
 <script setup lang="ts">
 import { useElementHover } from '@vueuse/core'
-import { reference } from '@/store'
+import { abilities, reference } from '@/store'
 
 import { INJECT_KEY } from './inject'
 import { isLog, isReference } from './utils'
@@ -83,4 +83,5 @@ const offsetSeconds = computed(() => {
 })
 
 const main = inject(INJECT_KEY)
+const ability = computed(() => abilities.get(props.data.ability))
 </script>

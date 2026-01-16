@@ -30,6 +30,8 @@ export function toObject(line: string[]): ILogLine | void {
         ability: line[5],
         targetId: line[6],
         target: line[7],
+        flags: line[8],
+        damage: line[9],
       }
   }
 }
@@ -55,6 +57,8 @@ export function toLog(
       {
         id: logLine.targetId,
         name: logLine.target,
+        damage: logLine.damage,
+        flags: logLine.flags,
       },
     ],
     _abilityType: logLine._abilityType,
@@ -66,6 +70,8 @@ export function toLog(
     timestamp,
     source: logLine.source,
     ability: logLine.ability,
+    damage: logLine.damage,
+    flags: logLine.flags,
   }
 }
 
@@ -76,7 +82,15 @@ export function toReference(log: ITimeline): ITimelineReference {
   return {
     _type: 'reference',
     _id: referenceId++,
-    ...pick(log, ['phase', 'isHostile', 'timestamp', 'ability', 'source']),
+    ...pick(log, [
+      'phase',
+      'isHostile',
+      'timestamp',
+      'ability',
+      'source',
+      'damage',
+      'flags',
+    ]),
   }
 }
 

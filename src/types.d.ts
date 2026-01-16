@@ -12,6 +12,8 @@ type ILogLine = {
   ability: string
   targetId: string
   target: string
+  flags: string
+  damage: string
 }
 
 type ITimelineType = 'reference' | 'log'
@@ -22,6 +24,8 @@ type ITimelineBase = {
   timestamp: number // 当前阶段的时间戳
   ability: string // 技能名称
   source: string // 使用者名称
+  damage?: string // 伤害
+  flags?: string
 }
 
 type ITimelineLog = ITimelineBase & {
@@ -31,7 +35,7 @@ type ITimelineLog = ITimelineBase & {
 
   _cd: number // 技能冷却时间
   _lastUse: number // 最后一次使用时间戳
-  _targets: { id: string; name: string }[] // 技能目标
+  _targets: { id: string; name: string; damage?: string; flags?: string }[] // 技能目标
   _abilityType: IAbilityType // 技能类型
   _miss: boolean // 是否 miss
 }

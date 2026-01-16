@@ -43,7 +43,9 @@ const MOCK_ABILITY = [
     return [
       `21|${toISOString(now)}|${source}|${source}|${ability._id}|${
         ability.name
-      }|BOSS|BOSS|flags|damage|?|?|?|?|?|?|?|?|?|?|?|?|?|?|targetCurrentHp|targetMaxHp|targetCurrentMp|targetMaxMp|?|?|targetX|targetY|targetZ|targetHeading|currentHp|maxHp|currentMp|maxMp|?|?|x|y|z|heading|sequence|targetIndex|targetCount`,
+      }|BOSS|BOSS|flags|${Math.floor(
+        Math.random() * 10000000
+      )}|?|?|?|?|?|?|?|?|?|?|?|?|?|?|targetCurrentHp|targetMaxHp|targetCurrentMp|targetMaxMp|?|?|targetX|targetY|targetZ|targetHeading|currentHp|maxHp|currentMp|maxMp|?|?|x|y|z|heading|sequence|targetIndex|targetCount`,
     ]
   },
   () => {
@@ -59,7 +61,9 @@ const MOCK_ABILITY = [
         (name) =>
           `22|${toISOString(now)}|${source}|${source}|${ability._id}|${
             ability.name
-          }|${name}|${name}|flags|damage|?|?|?|?|?|?|?|?|?|?|?|?|?|?|targetCurrentHp|targetMaxHp|targetCurrentMp|targetMaxMp|?|?|targetX|targetY|targetZ|targetHeading|currentHp|maxHp|currentMp|maxMp|?|?|x|y|z|heading|sequence|targetIndex|targetCount`
+          }|${name}|${name}|flags|${Math.floor(
+            Math.random() * 10000000
+          )}|?|?|?|?|?|?|?|?|?|?|?|?|?|?|targetCurrentHp|targetMaxHp|targetCurrentMp|targetMaxMp|?|?|targetX|targetY|targetZ|targetHeading|currentHp|maxHp|currentMp|maxMp|?|?|x|y|z|heading|sequence|targetIndex|targetCount`
       )
     } else {
       return [
